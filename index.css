@@ -1,0 +1,36 @@
+header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+}
+
+#classContainer
+{
+    background-color: blue;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 2em;
+    flex-wrap: wrap;
+    
+    padding: 1em;
+}
+
+.lessonBox
+{
+    background-color: yellow;
+    border-radius: 1em;
+    
+    width: 90%;
+    height: auto;
+    padding: 1em;
+}
+
+.lessonHead
+{
+    display: flex;
+}

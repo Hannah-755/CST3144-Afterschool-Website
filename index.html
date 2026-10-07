@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After School Lessons</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+</head>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1 v-text="sitename"></h1>
+            <div id="corners">
+                <p>Spent: ${{calculateTotal}}</p>
+                <button id="checkout" v-on:click="showCheckout" v-bind:disabled="cartItemCount===0">
+                    {{cartItemCount}}
+                    <span class="fa-solid fa-cart-shopping"></span> Checkout
+                </button>
+            </div>
+        </header>
+
+        <div id="classContainer" v-if="!showProduct">
+            <div v-for="lesson in lessons" :key="lesson.id">
+                <div class="lessonBox">
+                    <div class="lessonHead">
+                        <i v-bind:class="lesson.icon"></i>
+                        <h3>{{lesson.name}}</h3>
+                    </div>
+                    <ul>
+                        <li>Location: {{lesson.location}}</li>
+                        <li>Price: {{lesson.price}}</li>
+                        <li>Space: {{lesson.space}}</li>
+                    </ul>
+                    <button v-on:click="cart_process(lesson)" v-bind:disabled="!(lesson.space>0)">Add to cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div v-else id="checkoutContainer">
+            <ul v-for="product in cartShorten">
+                <i v-bind:class="product.icon"></i>
+                <li>
+                    <h3>{{product.product}} x{{product.details.amount}}</h3>
+                    <em>Located at {{product.details.location}}, {{product.details.space}} seats available</em>
+                    <br>
+                    <em class="pricetag">${{product.details.price}}</em>
+                    <hr>
+                </li>
+            </ul>
+            <br>
+            <br>
+            <hr>
+            <h3>Total: <em>${{calculateTotal}}</em></h3>
+
+            <input type="text" v-model="name.first">
+            <input type="text" v-model="name.last">
+            <button v-bind:disabled="!checkoutCheck">Checkout</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        const webstore=new Vue({
+            el:"#app",
+            data: 
+            {
+                sitename: "After School Lessons",
+                lessons:
+                [
+                    {
+                        id:1,
+                        icon: "fa-solid fa-robot",
+                        name: "Robotics", 
+                        location: "DPK Dubai campus", 
+                        price:50,
+                        space:5
+                    },
+                    {
+                        id:2,
+                        icon:"fa-solid fa-paintbrush",
+                        name: "Art", 
+                        location: "DPK Dubai campus", 
+                        price:50,
+                        space:5
+                    },
+                    {
+                        id:3,
+                        icon:"fa-solid fa-wallet",
+                        name: "Finance", 
+                        location: "DPK Dubai campus", 
+                        price:50,
+                        space:5
+                    },
+                    {
+                        id:4,
+                        icon:"fa-solid fa-calculator",
+                        name: "Mathematics", 
+                        location: "DPK Dubai campus", 
+                        price:50,
+                        space:5
+                    },
+                    {
+                        id:5,
+                        icon:"fa-solid fa-atom",
+                        name: "Science Basics", 
+                        location: "DPK Dubai campus", 
+                        price:50,
+                        space:5
+                    },
+                    {
+                        id:6,
+                        icon:"fa-solid fa-camera",
+                        name: "Photography", 
+                        location: "DPK Dubai campus", 
+                        price:50,
+                        space:5
+                    },
+                    {
+                        id:7,
+                        icon:"fa-solid fa-question",
+                        name: "This sucks", 
+                        location: "DPK Dubai campus", 
+                        price:50,
+                        space:5
+                    },
+                    {
+                        id:8,
+                        icon:"fa-solid fa-question",
+                        name: "AAAAA", 
+                        location: "DPK Dubai campus", 
+                        price:50,
+                        space:5
+                    },
+                    {
+                        id:9,
+                        icon:"fa-solid fa-question",
+                        name: "else", 
+                        location: "DPK Dubai campus", 
+                        price:50,
+                        space:5
+                    },
+                    {
+                        id:10,
+                        icon:"fa-solid fa-question",
+                        name: "is there", 
+                        location: "DPK Dubai campus", 
+                        price:50,
+                        space:5
+                    },
+                ],
+                cart: [],
+                total: 0,
+                showProduct: false,
+                name:
+                {
+                    first:"",
+                    last:""
+                }
+            },
+            methods:
+            {
+                cart_process: function(lesson)
+                {
+                    lesson.space-=1;
+                    this.total+=lesson.price;
+                    this.cart.push(lesson);
+                },
+                showCheckout:function()
+                {
+                    this.showProduct=!this.showProduct;
+                }
+            },
+            computed:
+            {
+                cartItemCount:function()
+                {
+                    return this.cart.length;
+                },
+                cartShorten:function()
+                {
+                    let shortened = this.cart.reduce((acc, product) => {
+                        amt=acc[product.name] ? amt=acc[product.name]['amount'] : 0;
+                        amt+=1;
+                        acc[product.name] = 
+                        {
+                            amount:amt,
+                            location:product.location,
+                            space:product.space,
+                            price:product.price,
+                            icon:product.icon
+                        };
+                        return acc;
+                    }, {});
+
+                    let convertArray = (dictionary) => {
+                        return Object.entries(dictionary).map(([key, value]) => ({ "product": key, "details": value }));
+                    };
+
+                    console.log("Hello:",convertArray(shortened))
+                    return convertArray(shortened);
+                },
+                calculateTotal:function()
+                {
+                    return this.total;
+                },
+                checkoutCheck:function()
+                {
+                    return (this.name.first.trim()!="")&&(this.name.last.trim()!="")
+                }
+            }
+        })
+    </script>
+</body>
+</html>
