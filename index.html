@@ -14,7 +14,7 @@
         <header>
             <h1 v-text="sitename"></h1>
             <div id="corners">
-                <p>Spent: ${{calculateTotal}}</p>
+                <p>Wallet: ${{calculateTotal}}</p>
                 <button id="checkout" v-on:click="showCheckout" v-bind:disabled="cartItemCount===0">
                     {{cartItemCount}}
                     <span class="fa-solid fa-cart-shopping"></span> Checkout
@@ -72,7 +72,7 @@
                             <li>Price: {{lesson.price}}</li>
                             <li>Space: {{lesson.space}}</li>
                         </ul>
-                        <button v-on:click="cart_process(lesson)" v-bind:disabled="!(lesson.space>0)">Add to cart</button>
+                        <button v-on:click="add_cart(lesson)" v-bind:disabled="!(lesson.space>0)">Add to cart</button>
                     </div>
                 </div>
             </div>
@@ -83,16 +83,20 @@
             <ul v-for="product in cartShorten">
                 <i v-bind:class="product.icon"></i>
                 <li>
-                    <h3>{{product.product}} x{{product.details.amount}}</h3>
+                    <h3>
+                        <i v-bind:class="product.details.icon"></i>
+                        {{product.product}} x{{product.details.amount}}
+                    </h3>
                     <em>Located at {{product.details.location}}, {{product.details.space}} seats available</em>
                     <br>
                     <em class="pricetag">${{product.details.price}}</em>
+                    <br>
+                    <button v-on:click="remove_cart(product)">Remove product</button>
+                    <button v-on:click="remove_cart(product,true)" v-if="product.details.amount>1">Remove all</button>
                     <hr>
                 </li>
             </ul>
-            <br>
-            <br>
-            <hr>
+            <button v-on:click="empty_cart()">Empty cart</button>
             <h3>Total: <em>${{calculateTotal}}</em></h3>
 
             <h1>Order Details:</h1>
@@ -252,11 +256,42 @@
             },
             methods:
             {
-                cart_process: function(lesson)
+                add_cart: function(lesson)
                 {
                     lesson.space-=1;
                     this.total+=lesson.price;
                     this.cart.push(lesson);
+                },
+                remove_cart: function(lesson,all=false)
+                {
+                    let quantity=1;
+                    if (all) quantity=lesson.details.amount;
+
+                    for(let i=0; i<quantity; i++)
+                    {
+                        let toRemove=this.cart.find(product => product.id===lesson.details.id);
+                        let indexToRemove=this.cart.indexOf(toRemove);
+                        this.cart.splice(indexToRemove,1);
+
+                        let toUpdate=this.lessons.find(product => product.id===lesson.details.id);
+                        toUpdate.space+=1;
+                        
+                        this.total-=toUpdate.price;
+                    }
+                    
+                    if (this.cart.length===0) this.showProduct=false;
+                },
+                empty_cart: function()
+                {
+                    this.cart.forEach(item=>
+                        {
+                            let toUpdate=this.lessons.find(lesson => lesson.id===item.id);
+                            toUpdate.space+=1;
+                        }
+                    );
+                    this.cart=[];
+                    this.total=0;
+                    this.showProduct=false;
                 },
                 showCheckout:function()
                 {
@@ -279,6 +314,8 @@
                 submitForm:function()
                 {
                     alert("Form submitted");
+                    this.cart=[];
+                    this.showProduct=false;
                 }
             },
             computed:
@@ -312,6 +349,7 @@
                         amt+=1;
                         acc[product.subject] = 
                         {
+                            id:product.id,
                             amount:amt,
                             location:product.location,
                             space:product.space,
