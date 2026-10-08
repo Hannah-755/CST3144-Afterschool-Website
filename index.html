@@ -40,6 +40,7 @@
         </div>
 
         <div v-else id="checkoutContainer">
+            <h1>Checkout</h1>
             <ul v-for="product in cartShorten">
                 <i v-bind:class="product.icon"></i>
                 <li>
@@ -55,9 +56,31 @@
             <hr>
             <h3>Total: <em>${{calculateTotal}}</em></h3>
 
-            <input type="text" v-model="name.first">
-            <input type="text" v-model="name.last">
-            <button v-bind:disabled="!checkoutCheck">Checkout</button>
+            <h1>Order Details:</h1>
+            <p>
+                <strong>First Name:</strong>
+                <input v-model.trim="order.firstName" v-on:input="canCheckout"/>
+            </p>
+            <p>
+                <strong>Last Name:</strong>
+                <input v-model.trim="order.lastName" v-on:input="canCheckout"/>
+            </p>
+
+            <p>
+                <strong>Emirate:</strong>
+                <select v-model="order.emirate" v-on:change="canCheckout" class="form-control">
+                    <option disabled value="">Emirate</option>
+                    <option v-for="(emirate,key) in emirates"
+                    v-bind:value="emirate">{{emirate}}</option>
+                </select>
+            </p>
+
+            <p>
+                <strong>Address:</strong>
+                <input v-model="order.address" v-on:input="canCheckout"/>
+            </p>
+            
+            <button v-bind:disabled="!checkoutCheck" v-on:click="submitForm">Submit</button>
         </div>
     </div>
 
@@ -153,11 +176,23 @@
                 cart: [],
                 total: 0,
                 showProduct: false,
-                name:
+                order:{
+                    firstName:"",
+                    lastName:"",
+                    address:"",
+                    emirate:""
+                },
+                emirates:
                 {
-                    first:"",
-                    last:""
-                }
+                    AUH:"Abu Dhabi",
+                    DBX:"Dubai",
+                    SHJ:"Sharjah",
+                    AJM:"Ajman",
+                    FJR:"Fujairah",
+                    RAK:"Ras-Al-Khaimah",
+                    UAQ:"Umm-Al-Quwain"
+                },
+                canOrder:false
             },
             methods:
             {
@@ -170,6 +205,24 @@
                 showCheckout:function()
                 {
                     this.showProduct=!this.showProduct;
+                },
+                canCheckout:function()
+                {
+                    let flagged=false;
+                    Object.keys(this.order).forEach(key=>
+                        {
+                            if (this.order[key]==="")
+                            {
+                                flagged=true;
+                                return
+                            }
+                        }
+                    );
+                    this.canOrder=!flagged;
+                },
+                submitForm:function()
+                {
+                    alert("Form submitted");
                 }
             },
             computed:
@@ -198,7 +251,6 @@
                         return Object.entries(dictionary).map(([key, value]) => ({ "product": key, "details": value }));
                     };
 
-                    console.log("Hello:",convertArray(shortened))
                     return convertArray(shortened);
                 },
                 calculateTotal:function()
@@ -207,7 +259,7 @@
                 },
                 checkoutCheck:function()
                 {
-                    return (this.name.first.trim()!="")&&(this.name.last.trim()!="")
+                    return this.canOrder
                 }
             }
         })
