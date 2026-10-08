@@ -80,6 +80,14 @@
                 <input v-model="order.address" v-on:input="canCheckout"/>
             </p>
             
+            <hr>
+            <h2>Confirm Details:</h2>
+            <p><strong>First Name:</strong> {{order.firstName}}</p>
+            <p><strong>Last Name:</strong> {{order.lastName}}</p>
+
+            <p><strong>Emirate:</strong> {{order.emirate}}</p>
+            <p><strong>Address:</strong> {{order.address}}</p>
+
             <button v-bind:disabled="!checkoutCheck" v-on:click="submitForm">Submit</button>
         </div>
     </div>
