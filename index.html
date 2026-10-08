@@ -21,20 +21,59 @@
                 </button>
             </div>
         </header>
+        
+        <div id="storeContainer" v-if="!showProduct">
+            <div id="sorting">
+                <p><strong>Sort By:</strong></p>
+                <div id="sortChoice" class="sideOptions">
+                    <p>
+                        <input type="radio" id="subject" value="subject" v-model="sortBy">
+                        <label for="subject">Subject</label>
+                    </p>
 
-        <div id="classContainer" v-if="!showProduct">
-            <div v-for="lesson in lessons" :key="lesson.id">
-                <div class="lessonBox">
-                    <div class="lessonHead">
-                        <i v-bind:class="lesson.icon"></i>
-                        <h3>{{lesson.name}}</h3>
+                    <p>
+                        <input type="radio" id="location" value="location" v-model="sortBy">
+                        <label for="location">Location</label>
+                    </p>
+                    
+                    <p>
+                        <input type="radio" id="price" value="price" v-model="sortBy">
+                        <label for="price">Price</label>
+                    </p>
+                    
+                    <p>
+                        <input type="radio" id="space" value="space" v-model="sortBy">
+                        <label for="space">Availability</label>
+                    </p>
+                </div>
+                <div id="orderChoice" class="sideOptions">
+                    <p>
+                        <input type="radio" id="ascending" value="asc" v-model="orderBy">
+                        <label for="ascending">Ascending</label>
+                    </p>
+                    
+                    <p>
+                        <input type="radio" id="descending" value="desc" v-model="orderBy">
+                        <label for="descending">Descending</label>
+                    </p>
+                    
+                </div>
+            </div>
+
+            <div id="classContainer">
+                <div v-for="lesson in lessons" :key="lesson.id">
+                    <div class="lessonBox">
+                        <div class="lessonHead">
+                            <i v-bind:class="lesson.icon"></i>
+                            <h3>{{lesson.name}}</h3>
+                        </div>
+                        <ul>
+                            <li>Location: {{lesson.location}}</li>
+                            <li>Price: {{lesson.price}}</li>
+                            <li>Space: {{lesson.space}}</li>
+                        </ul>
+                        <button v-on:click="cart_process(lesson)" v-bind:disabled="!(lesson.space>0)">Add to cart</button>
                     </div>
-                    <ul>
-                        <li>Location: {{lesson.location}}</li>
-                        <li>Price: {{lesson.price}}</li>
-                        <li>Space: {{lesson.space}}</li>
-                    </ul>
-                    <button v-on:click="cart_process(lesson)" v-bind:disabled="!(lesson.space>0)">Add to cart</button>
                 </div>
             </div>
         </div>
@@ -67,6 +106,11 @@
             </p>
 
             <p>
+                <strong>Phone Number:</strong>
+                <input v-model.number="order.phone" v-on:input="canCheckout"/>
+            </p>
+
+            <p>
                 <strong>Emirate:</strong>
                 <select v-model="order.emirate" v-on:change="canCheckout" class="form-control">
                     <option disabled value="">Emirate</option>
@@ -84,6 +128,7 @@
             <h2>Confirm Details:</h2>
             <p><strong>First Name:</strong> {{order.firstName}}</p>
             <p><strong>Last Name:</strong> {{order.lastName}}</p>
+            <p><strong>Phone Number:</strong> {{order.phone}}</p>
 
             <p><strong>Emirate:</strong> {{order.emirate}}</p>
             <p><strong>Address:</strong> {{order.address}}</p>
@@ -104,15 +149,15 @@
                         id:1,
                         icon: "fa-solid fa-robot",
                         name: "Robotics", 
-                        location: "DPK Dubai campus", 
-                        price:50,
+                        location: "Dubai", 
+                        price:150,
                         space:5
                     },
                     {
                         id:2,
                         icon:"fa-solid fa-paintbrush",
                         name: "Art", 
-                        location: "DPK Dubai campus", 
+                        location: "Abu Dhabi", 
                         price:50,
                         space:5
                     },
@@ -120,64 +165,64 @@
                         id:3,
                         icon:"fa-solid fa-wallet",
                         name: "Finance", 
-                        location: "DPK Dubai campus", 
-                        price:50,
+                        location: "Ajman", 
+                        price:75,
                         space:5
                     },
                     {
                         id:4,
                         icon:"fa-solid fa-calculator",
                         name: "Mathematics", 
-                        location: "DPK Dubai campus", 
-                        price:50,
+                        location: "Fujairah", 
+                        price:80,
                         space:5
                     },
                     {
                         id:5,
                         icon:"fa-solid fa-atom",
                         name: "Science Basics", 
-                        location: "DPK Dubai campus", 
-                        price:50,
+                        location: "Sharjah", 
+                        price:90,
                         space:5
                     },
                     {
                         id:6,
                         icon:"fa-solid fa-camera",
                         name: "Photography", 
-                        location: "DPK Dubai campus", 
-                        price:50,
+                        location: "Ras-Al-Kaimah", 
+                        price:120,
                         space:5
                     },
                     {
                         id:7,
-                        icon:"fa-solid fa-question",
-                        name: "This sucks", 
-                        location: "DPK Dubai campus", 
-                        price:50,
+                        icon: "fa-solid fa-music",
+                        name: "Music", 
+                        location: "Umm-Al-Quwain", 
+                        price:90,
                         space:5
                     },
                     {
                         id:8,
-                        icon:"fa-solid fa-question",
-                        name: "AAAAA", 
-                        location: "DPK Dubai campus", 
+                        icon:"fa-solid fa-pen",
+                        name: "English", 
+                        location: "Fujairah", 
                         price:50,
                         space:5
                     },
                     {
                         id:9,
-                        icon:"fa-solid fa-question",
-                        name: "else", 
-                        location: "DPK Dubai campus", 
-                        price:50,
+                        icon:"fa-solid fa-music",
+                        name: "Music", 
+                        location: "Sharjah", 
+                        price:110,
                         space:5
                     },
                     {
                         id:10,
-                        icon:"fa-solid fa-question",
-                        name: "is there", 
-                        location: "DPK Dubai campus", 
-                        price:50,
+                        icon:"fa-solid fa-book",
+                        name: "History", 
+                        location: "Dubai", 
+                        price:60,
                         space:5
                     },
                 ],
@@ -188,7 +233,8 @@
                     firstName:"",
                     lastName:"",
                     address:"",
-                    emirate:""
+                    emirate:"",
+                    phone:""
                 },
                 emirates:
                 {
@@ -200,6 +246,8 @@
                     RAK:"Ras-Al-Khaimah",
                     UAQ:"Umm-Al-Quwain"
                 },
+                sortBy: "subject",
+                orderBy: "asc",
                 canOrder:false
             },
             methods:

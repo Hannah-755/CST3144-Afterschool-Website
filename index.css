@@ -7,6 +7,30 @@ header
     width: 100%;
 }
 
+#storeContainer
+{
+    background-color: green;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+#sorting
+{
+    background-color: orange;
+    
+    display: flex;
+    flex-direction: column;
+
+    width: 30%;
+    padding: 1em;
+}
+
+.sideOptions
+{
+    background-color: pink;
+}
+
 #classContainer
 {
     background-color: blue;
@@ -14,8 +38,9 @@ header
     display: flex;
     justify-content: space-around;
     align-items: center;
-    gap: 2em;
+    gap: 1em;
     flex-wrap: wrap;
+    width: 200%;
     
     padding: 1em;
 }
@@ -25,7 +50,7 @@ header
     background-color: yellow;
     border-radius: 1em;
     
-    width: 90%;
+    width: 270px;
     height: auto;
     padding: 1em;
 }
