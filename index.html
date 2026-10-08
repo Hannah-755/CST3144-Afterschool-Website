@@ -61,11 +61,11 @@
             </div>
 
             <div id="classContainer">
-                <div v-for="lesson in lessons" :key="lesson.id">
+                <div v-for="lesson in reorder" :key="lesson.id">
                     <div class="lessonBox">
                         <div class="lessonHead">
                             <i v-bind:class="lesson.icon"></i>
-                            <h3>{{lesson.name}}</h3>
+                            <h3>{{lesson.subject}}</h3>
                         </div>
                         <ul>
                             <li>Location: {{lesson.location}}</li>
@@ -148,7 +148,7 @@
                     {
                         id:1,
                         icon: "fa-solid fa-robot",
-                        name: "Robotics", 
+                        subject: "Robotics", 
                         location: "Dubai", 
                         price:150,
                         space:5
@@ -156,7 +156,7 @@
                     {
                         id:2,
                         icon:"fa-solid fa-paintbrush",
-                        name: "Art", 
+                        subject: "Art", 
                         location: "Abu Dhabi", 
                         price:50,
                         space:5
@@ -164,7 +164,7 @@
                     {
                         id:3,
                         icon:"fa-solid fa-wallet",
-                        name: "Finance", 
+                        subject: "Finance", 
                         location: "Ajman", 
                         price:75,
                         space:5
@@ -172,7 +172,7 @@
                     {
                         id:4,
                         icon:"fa-solid fa-calculator",
-                        name: "Mathematics", 
+                        subject: "Mathematics", 
                         location: "Fujairah", 
                         price:80,
                         space:5
@@ -180,7 +180,7 @@
                     {
                         id:5,
                         icon:"fa-solid fa-atom",
-                        name: "Science Basics", 
+                        subject: "Science Basics", 
                         location: "Sharjah", 
                         price:90,
                         space:5
@@ -188,7 +188,7 @@
                     {
                         id:6,
                         icon:"fa-solid fa-camera",
-                        name: "Photography", 
+                        subject: "Photography", 
                         location: "Ras-Al-Kaimah", 
                         price:120,
                         space:5
@@ -196,7 +196,7 @@
                     {
                         id:7,
                         icon: "fa-solid fa-music",
-                        name: "Music", 
+                        subject: "Music", 
                         location: "Umm-Al-Quwain", 
                         price:90,
                         space:5
@@ -204,7 +204,7 @@
                     {
                         id:8,
                         icon:"fa-solid fa-pen",
-                        name: "English", 
+                        subject: "English", 
                         location: "Fujairah", 
                         price:50,
                         space:5
@@ -212,7 +212,7 @@
                     {
                         id:9,
                         icon:"fa-solid fa-music",
-                        name: "Music", 
+                        subject: "Music", 
                         location: "Sharjah", 
                         price:110,
                         space:5
@@ -220,7 +220,7 @@
                     {
                         id:10,
                         icon:"fa-solid fa-book",
-                        name: "History", 
+                        subject: "History", 
                         location: "Dubai", 
                         price:60,
                         space:5
@@ -283,6 +283,24 @@
             },
             computed:
             {
+                reorder:function()
+                {
+                    const sorts=((current,next)=>
+                        {
+                            let tempOrder=0;
+                            if (current[this.sortBy]<next[this.sortBy])
+                            {
+                                this.orderBy==="asc" ? tempOrder=-1:tempOrder=1
+                            }
+                            else if (current[this.sortBy]>next[this.sortBy])
+                            {
+                                this.orderBy==="asc" ? tempOrder=1:tempOrder=-1
+                            }
+                            return tempOrder;
+                        }
+                    )
+                    return this.lessons.sort(sorts);
+                },
                 cartItemCount:function()
                 {
                     return this.cart.length;
@@ -290,9 +308,9 @@
                 cartShorten:function()
                 {
                     let shortened = this.cart.reduce((acc, product) => {
-                        amt=acc[product.name] ? amt=acc[product.name]['amount'] : 0;
+                        amt=acc[product.subject] ? amt=acc[product.subject]['amount'] : 0;
                         amt+=1;
-                        acc[product.name] = 
+                        acc[product.subject] = 
                         {
                             amount:amt,
                             location:product.location,
