@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <script src="lessons.js"></script>
 </head>
 </head>
 <body>
@@ -81,6 +82,10 @@
                             <li>Price: {{lesson.price}}</li>
                             <li>Space: {{lesson.space}}</li>
                         </ul>
+
+                        <!--<span v-for="star in lesson.rating"><i class="fa-solid fa-star"></i></span>
+                        <span v-for="star in 5 - lesson.rating">?</span>-->
+                        
                         <span v-if="lesson.space==0"><strong>All out!</strong></span>
                         <span v-else-if="lesson.space<5"><strong>Only {{lesson.space}} left!</strong></span>
                         <button v-on:click="add_cart(lesson)" v-bind:disabled="!(lesson.space>0)">Add to cart</button>
@@ -160,89 +165,7 @@
             data: 
             {
                 sitename: "HORIZON ACADEMY",
-                lessons:
-                [
-                    {
-                        id:1,
-                        icon: "fa-solid fa-robot",
-                        subject: "Robotics", 
-                        location: "Dubai", 
-                        price:150,
-                        space:5
-                    },
-                    {
-                        id:2,
-                        icon:"fa-solid fa-paintbrush",
-                        subject: "Art", 
-                        location: "Abu Dhabi", 
-                        price:50,
-                        space:5
-                    },
-                    {
-                        id:3,
-                        icon:"fa-solid fa-wallet",
-                        subject: "Finance", 
-                        location: "Ajman", 
-                        price:75,
-                        space:5
-                    },
-                    {
-                        id:4,
-                        icon:"fa-solid fa-calculator",
-                        subject: "Mathematics", 
-                        location: "Fujairah", 
-                        price:80,
-                        space:5
-                    },
-                    {
-                        id:5,
-                        icon:"fa-solid fa-atom",
-                        subject: "Science Basics", 
-                        location: "Sharjah", 
-                        price:90,
-                        space:5
-                    },
-                    {
-                        id:6,
-                        icon:"fa-solid fa-camera",
-                        subject: "Photography", 
-                        location: "Ras-Al-Kaimah", 
-                        price:120,
-                        space:5
-                    },
-                    {
-                        id:7,
-                        icon: "fa-solid fa-music",
-                        subject: "Music", 
-                        location: "Umm-Al-Quwain", 
-                        price:90,
-                        space:5
-                    },
-                    {
-                        id:8,
-                        icon:"fa-solid fa-pen",
-                        subject: "English", 
-                        location: "Fujairah", 
-                        price:50,
-                        space:5
-                    },
-                    {
-                        id:9,
-                        icon:"fa-solid fa-music",
-                        subject: "Music", 
-                        location: "Sharjah", 
-                        price:110,
-                        space:5
-                    },
-                    {
-                        id:10,
-                        icon:"fa-solid fa-book",
-                        subject: "History", 
-                        location: "Dubai", 
-                        price:60,
-                        space:5
-                    },
-                ],
+                lessons:lessons,
                 cart: [],
                 total: 0,
                 showProduct: false,
