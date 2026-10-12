@@ -1,24 +1,69 @@
+html,body
+{
+    margin: 0;
+    padding: 0;
+    background-color: #202023;
+}
+
+#app
+{
+    color: white;
+    padding: 1em;
+    font-family: "Bricolage Grotesque", sans-serif;
+}
+
 header
 {
+
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items:flex-end;
 
     width: 100%;
 }
 
+#site
+{
+    padding: 1em;
+    background-color: #53D4BA;
+    width: 100%;
+    border-radius: 0.5em;
+
+    color: #202023;
+    font-size: 3em;
+    text-align: center;
+    transition-duration: 0.4s;
+}
+
+#site:hover
+{
+    /*color: white;*/
+    cursor: default;
+}
+
+#corners
+{
+    padding: 1em;
+    display: flex;
+    gap: 1em;
+}
+
+#checkout
+{
+    border: none;
+    border-radius: 5px;
+    padding: 1em;
+    /*background-color: #419D78;*/
+}
+
 #storeContainer
 {
-    background-color: green;
-
     display: flex;
     justify-content: space-around;
 }
 
 #sorting
 {
-    background-color: orange;
-    
     display: flex;
     flex-direction: column;
 
@@ -26,14 +71,8 @@ header
     padding: 1em;
 }
 
-.sideOptions
-{
-    background-color: pink;
-}
-
 #classContainer
 {
-    background-color: blue;
 
     display: flex;
     justify-content: space-around;
@@ -47,12 +86,48 @@ header
 
 .lessonBox
 {
-    background-color: yellow;
-    border-radius: 1em;
+    border:2px solid grey;
+    border-radius: 2em;
     
     width: 270px;
     height: auto;
     padding: 1em;
+    transition-duration: 0.3s;
+}
+
+.lessonBox button
+{
+    border: none;
+    border-radius: 0.5em;
+    padding: 1em;
+    transition-duration: 0.3s;
+    width: 100%;
+}
+
+.lessonBox:hover
+{
+    border-color: #53D4BA;
+    color: #53D4BA;
+}
+
+.lessonBox hr
+{
+    transition-duration: 0.3s;
+}
+
+.lessonBox:hover hr
+{
+    color: #53D4BA;
+}
+
+.lessonBox:hover button
+{
+    background-color: #53D4BA;
+}
+
+.lessonBox button:hover
+{
+    cursor: pointer;
 }
 
 .lessonHead

@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>After School Lessons</title>
+    <!--FUCK ask miss if using google font apis is ok-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
@@ -12,13 +16,17 @@
 <body>
     <div id="app">
         <header>
-            <h1 v-text="sitename"></h1>
+            <div id="site">
+                <h1 v-text="sitename"></h1>
+            </div>
             <div id="corners">
-                <p>Wallet: ${{calculateTotal}}</p>
                 <button id="checkout" v-on:click="showCheckout" v-bind:disabled="cartItemCount===0">
                     {{cartItemCount}}
                     <span class="fa-solid fa-cart-shopping"></span> Checkout
                 </button>
+                <div id="wallet">
+                    <p>Wallet: ${{calculateTotal}}</p>
+                </div>
             </div>
         </header>
         
@@ -67,6 +75,7 @@
                             <i v-bind:class="lesson.icon"></i>
                             <h3>{{lesson.subject}}</h3>
                         </div>
+                        <hr>
                         <ul>
                             <li>Location: {{lesson.location}}</li>
                             <li>Price: {{lesson.price}}</li>
@@ -146,7 +155,7 @@
             el:"#app",
             data: 
             {
-                sitename: "After School Lessons",
+                sitename: "HORIZON ACADEMY",
                 lessons:
                 [
                     {
