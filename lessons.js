@@ -87,6 +87,7 @@ let lessons=
         subject: "History", 
         location: "Dubai", 
         price:60,
-        space:5
+        space:5,
+        rating:5
     },
 ]

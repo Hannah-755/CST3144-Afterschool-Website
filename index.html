@@ -83,11 +83,15 @@
                             <li>Space: {{lesson.space}}</li>
                         </ul>
 
-                        <!--<span v-for="star in lesson.rating"><i class="fa-solid fa-star"></i></span>
-                        <span v-for="star in 5 - lesson.rating">?</span>-->
-                        
-                        <span v-if="lesson.space==0"><strong>All out!</strong></span>
-                        <span v-else-if="lesson.space<5"><strong>Only {{lesson.space}} left!</strong></span>
+                        <div class="ratings">
+                            <span v-for="star in lesson.rating"><i class="fa-solid fa-star"></i></span>
+                            <span v-for="star in 5 - lesson.rating"><i class="fa-regular fa-star"></i></span>
+                        </div>
+
+                        <div>
+                            <span v-if="lesson.space==0"><strong>All out!</strong></span>
+                            <span v-else-if="lesson.space<5"><strong>Only {{lesson.space}} left!</strong></span>  
+                        </div>
                         <button v-on:click="add_cart(lesson)" v-bind:disabled="!(lesson.space>0)">Add to cart</button>
                     </div>
                 </div>

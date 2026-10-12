@@ -103,9 +103,6 @@ header
 
 .lessonBox button
 {
-    border: none;
-    border-radius: 0.5em;
-    padding: 1em;
     transition-duration: 0.3s;
     width: 100%;
 }
@@ -139,6 +136,13 @@ header
 .lessonHead
 {
     display: flex;
+}
+
+.ratings
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 .removeOptions
