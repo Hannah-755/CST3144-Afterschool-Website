@@ -133,7 +133,7 @@
 
             <p>
                 <strong>Phone Number:</strong>
-                <input v-model.number="order.phone" v-on:input="canCheckout"/>
+                <input v-model="order.phone" v-on:input="canCheckout"/>
             </p>
 
             <p>
@@ -246,6 +246,24 @@
                             {
                                 flagged=true;
                                 return
+                            }
+                            else if(key=="phone")
+                            {
+                                let phoneCheck=/^[0-9]+$/
+                                if ((phoneCheck.test(this.order[key]))===false)
+                                {
+                                    flagged=true;
+                                    return;
+                                };
+                            }
+                            else if((key=="firstName")||(key=="lastName"))
+                            {
+                                let nameCheck=/^[a-z]+$/i
+                                if ((nameCheck.test(this.order[key]))===false)
+                                {
+                                    flagged=true;
+                                    return;
+                                };
                             }
                         }
                     );
