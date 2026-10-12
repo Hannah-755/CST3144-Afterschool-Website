@@ -5,6 +5,20 @@ html,body
     background-color: #202023;
 }
 
+button
+{
+    border: none;
+    border-radius: 5px;
+    padding: 1em;
+    transition-duration: 0.4s;
+}
+
+button:hover:not([disabled])
+{
+    background-color: #53D4BA;
+    cursor: pointer;
+}
+
 #app
 {
     color: white;
@@ -46,14 +60,6 @@ header
     padding: 1em;
     display: flex;
     gap: 1em;
-}
-
-#checkout
-{
-    border: none;
-    border-radius: 5px;
-    padding: 1em;
-    /*background-color: #419D78;*/
 }
 
 #storeContainer
@@ -133,4 +139,23 @@ header
 .lessonHead
 {
     display: flex;
+}
+
+.removeOptions
+{
+    display: flex;
+    width: 100%;
+    justify-content: right;
+    gap: 5px;
+}
+
+#totalCheckout
+{
+    display: flex;
+    justify-content: right;
+}
+
+#emptyCart
+{
+    width: 100%;
 }

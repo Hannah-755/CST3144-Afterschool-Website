@@ -81,6 +81,8 @@
                             <li>Price: {{lesson.price}}</li>
                             <li>Space: {{lesson.space}}</li>
                         </ul>
+                        <span v-if="lesson.space==0"><strong>All out!</strong></span>
+                        <span v-else-if="lesson.space<5"><strong>Only {{lesson.space}} left!</strong></span>
                         <button v-on:click="add_cart(lesson)" v-bind:disabled="!(lesson.space>0)">Add to cart</button>
                     </div>
                 </div>
@@ -91,7 +93,7 @@
             <h1>Checkout</h1>
             <ul v-for="product in cartShorten">
                 <i v-bind:class="product.icon"></i>
-                <li>
+                <li class="checkoutItem">
                     <h3>
                         <i v-bind:class="product.details.icon"></i>
                         {{product.product}} x{{product.details.amount}}
@@ -100,13 +102,15 @@
                     <br>
                     <em class="pricetag">${{product.details.price}}</em>
                     <br>
-                    <button v-on:click="remove_cart(product)">Remove product</button>
-                    <button v-on:click="remove_cart(product,true)" v-if="product.details.amount>1">Remove all</button>
+                    <div class="removeOptions">
+                        <button v-on:click="remove_cart(product)">Remove product</button>
+                        <button v-on:click="remove_cart(product,true)" v-if="product.details.amount>1">Remove all</button>
+                    </div>
                     <hr>
                 </li>
             </ul>
-            <button v-on:click="empty_cart()">Empty cart</button>
-            <h3>Total: <em>${{calculateTotal}}</em></h3>
+            <h3 id="totalCheckout">TOTAL: <em>${{calculateTotal}}</em></h3>
+            <button v-on:click="empty_cart()" id="emptyCart"><strong>EMPTY CART</strong></button>
 
             <h1>Order Details:</h1>
             <p>
