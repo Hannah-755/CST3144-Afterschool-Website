@@ -19,6 +19,14 @@ button:hover:not([disabled])
     cursor: pointer;
 }
 
+input
+{
+    background-color: #00000000;
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
+}
+
 #app
 {
     color: white;
@@ -55,9 +63,17 @@ header
     cursor: default;
 }
 
-#corners
+#banner
 {
     padding: 1em;
+    display: flex;
+    justify-content: space-between;
+
+    width:98%
+}
+
+#corners
+{
     display: flex;
     gap: 1em;
 }

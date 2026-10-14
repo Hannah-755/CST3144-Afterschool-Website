@@ -20,13 +20,16 @@
             <div id="site">
                 <h1 v-text="sitename"></h1>
             </div>
-            <div id="corners">
-                <button id="checkout" v-on:click="showCheckout" v-bind:disabled="cartItemCount===0">
-                    {{cartItemCount}}
-                    <span class="fa-solid fa-cart-shopping"></span> Checkout
-                </button>
-                <div id="wallet">
-                    <p>Wallet: ${{calculateTotal}}</p>
+            <div id="banner">
+                <input type="text">
+                <div id="corners">
+                    <button id="checkout" v-on:click="showCheckout" v-bind:disabled="cartItemCount===0">
+                        {{cartItemCount}}
+                        <span class="fa-solid fa-cart-shopping"></span> Checkout
+                    </button>
+                    <div id="wallet">
+                        <p>Wallet: ${{calculateTotal}}</p>
+                    </div>
                 </div>
             </div>
         </header>
