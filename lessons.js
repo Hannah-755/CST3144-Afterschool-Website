@@ -39,7 +39,7 @@ let lessons=
     {
         id:5,
         icon:"fa-solid fa-atom",
-        subject: "Science Basics", 
+        subject: "Science", 
         location: "Sharjah", 
         price:90,
         space:5,

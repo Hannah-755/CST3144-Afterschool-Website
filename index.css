@@ -154,6 +154,13 @@ header
     display: flex;
 }
 
+.lessonImage
+{
+    width: 100%;
+    margin-bottom: 1em;
+    border-radius: 1em;
+}
+
 .ratings
 {
     display: flex;
